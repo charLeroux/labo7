@@ -1,0 +1,109 @@
+<!--
+Auteur: Charles Leroux
+Date: 23/10/2024
+Fichier: pageUser.ejs
+Description: page du client selon leur niveau de droit 
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+    <% if (user.droit==0) { %>
+        <div>
+            <p>
+                <%= user.message %>
+            </p>
+        </div>
+        <% } %>
+    <% if (user.droit==1) 
+    { %>
+        <div>
+            <p>
+                <%= user.message %>
+            </p>
+            </div>
+            <form action="/changerMessage" method="post">
+                <input type="text" name="texteChanger" id="texteChanger">
+                <input type="submit" name="changeMessage" id="changeMessage" value="modifie le message">
+            </form>
+
+    <% } %>
+    <% if (user.droit==2) { %>
+            <div>
+                <p>
+                    <%= user.message %>
+                </p>
+            </div>
+            <form action="/changerMessage" method="post">
+                <input type="text" name="texteChanger" id="texteChanger">
+                <input type="submit" name="changeMessage" id="changeMessage" value="modifie le message">
+            </form>
+            <br>
+            <form action="/changerPassword" method="post">
+                <input type="text" name="passwordChange" id="passwordChange">
+                <input type="submit" name="changerPassword" id="changerPassword" value="modifie password">
+            </form>
+
+
+        <% } %>
+
+
+
+        <% if (user.droit==3) { %>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Login</th>
+                        <th>Password</th>
+                        <th>Texte</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% database.forEach(element=> { %>
+                        <tr>
+                            <td>
+                                <%= element.Id %>
+                            </td>
+                            <td>
+                                <%= element.Login %>
+                            </td>
+                            <td>
+                                <%= element.Password %>
+                            </td>
+                            <td>
+                                <%= element.Texte %>
+                            </td>
+                        </tr>
+
+                    <% }) %>
+                </tbody>
+            </table>
+            <form action="/changerMessage" method="post">
+                <input type="text" name="texteChanger" id="texteChanger">
+                <input type="submit" name="changeMessage" id="changeMessage" value="modifie le message">
+            </form>
+            <br>
+            <form action="/changerPassword" method="post">
+                <input type="text" name="passwordChange" id="passwordChange">
+                <input type="submit" name="changerPassword" id="changerPassword" value="modifie password">
+            </form>
+
+        <% } %>
+     <br>       
+    <form action="/logout" method="post">
+    <input type="submit" name="logout" id="logout" value="deconnecter">
+    </form>
+</body>
+
+</html>
+
+
+
